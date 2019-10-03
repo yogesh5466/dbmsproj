@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios';
-import { Button,  Form} from 'react-bootstrap';
+import { Button,  Form, Table} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import App from './App';
 
 class Listing extends React.Component{
 
@@ -11,15 +12,15 @@ class Listing extends React.Component{
      this.state = {
        table: [
          {key:'Select', name: 'Select a table' },
-         {key:'Vehicleinfo', name: 'Vehicleinfo' },
-         {key:'Road' ,name: 'Road' },
-         {key:'Junction' ,name: 'Junction'},
-         {key:'Type' ,name: 'Type'},
-         {key:'Traffic' ,name: 'Traffic'},
-         {key:'TrafficPolice' ,name: 'TrafficPolice'},
-         {key:'Station' ,name: 'Station'},
-         {key:'License' ,name: 'License'},
-         {key:'PersonalDetail' ,name: 'PersonalDetail'}
+         {key:'Vehicleinfo', name: 'vehicleinfo' },
+         {key:'Road' ,name: 'road' },
+         {key:'Junction' ,name: 'junction'},
+         {key:'Type' ,name: 'type'},
+         {key:'Traffic' ,name: 'traffic'},
+         {key:'TrafficPolice' ,name: 'trafficPolice'},
+         {key:'Station' ,name: 'station'},
+         {key:'License' ,name: 'license'},
+         {key:'PersonalDetail' ,name: 'personaldetail'}
        ],
        value: 0,
        currenttable: 'Select a table',
@@ -30,25 +31,21 @@ class Listing extends React.Component{
    handleChange = e => {
      e.preventDefault();
      const { name, value } = e.target;
-     switch (name) {
-       case 'table':
-       this.setState({currenttable: value});
-       let data = {
-         'tablename': value
-       }
-       axios.post('http://localhost:3001/display',data)
-         .then(res => {
-           if(res.data===false){
-             alert("data cannot be fetched")
-           }
-           else{
-             this.setState({content: res.data})
-           }
-         })
-         break;
-       default:
-         break;
+     this.setState({currenttable: value});
+     let data = {
+       'tablename': value
      }
+     console.log(data)
+     axios.post('http://localhost:3001/display',data)
+       .then(res => {
+         if(res.data===false){
+           alert("data cannot be fetched")
+         }
+         else{
+           this.setState({content: res.data})
+           console.log(res.data)
+         }
+       })
    }
    handleClicks = e => {
      e.preventDefault();
@@ -57,6 +54,9 @@ class Listing extends React.Component{
 
 
    render(){
+     if(this.state.value===1){
+       return (<App />);
+     }
      switch (this.state.currenttable) {
        case 'Select a table':
        if(this.state.value===1){
@@ -90,10 +90,15 @@ class Listing extends React.Component{
          );
        }
          break;
-       case 'Vehicleinfo':
+       case 'vehicleinfo':
          return (
            <div>
-        <Table striped bordered hover>
+           <div className='bar'>
+           <li><a href="" onClick={this.handleClicks}>Home</a></li>
+           <li><a href="http://localhost:3000">Signout</a></li>
+           </div>
+        <div id="container">
+        <Table striped bordered hover variant="dark" size="lg">
         <thead>
         <tr>
         <th>licenseplate</th>
@@ -106,18 +111,24 @@ class Listing extends React.Component{
         <tbody>
         {
           this.state.content.map((c,i) => {
-            return <tr><td>{c.licenseplate}</td><td>{c.vehicleid}</td><td>{c.colour}</td><td>{c.roadid}</td><td>{c.licenseno}</td></tr>
+            return <tr><td>{c.licenceplate}</td><td>{c.vehicleid}</td><td>{c.colour}</td><td>{c.roadid}</td><td>{c.licenceno}</td></tr>
           })
         }
         </tbody>
         </Table>
+        </div>
            </div>
          );
          break;
-       case 'Road':
+       case 'road':
          return (
            <div>
-           <Table striped bordered hover>
+           <div className='bar'>
+           <li><a href="" onClick={this.handleClicks}>Home</a></li>
+           <li><a href="http://localhost:3000">Signout</a></li>
+           </div>
+           <div id="container">
+           <Table striped bordered hover variant="dark" size="lg">
            <thead>
            <tr>
            <th>roadid</th>
@@ -130,18 +141,24 @@ class Listing extends React.Component{
            <tbody>
            {
              this.state.content.map((c,i) => {
-               return <tr><td>{c.roadid}</td><td>{c.town}</td><td>{c.junctionid}</td><td>{c.to}</td><td>{c.from}</td></tr>
+               return <tr><td>{c.roadid}</td><td>{c.town}</td><td>{c.junctionid}</td><td>{c.dest}</td><td>{c.source}</td></tr>
              })
            }
            </tbody>
            </Table>
            </div>
+           </div>
          );
          break;
-       case 'Junction':
+       case 'junction':
          return (
            <div>
-           <Table striped bordered hover>
+           <div className='bar'>
+           <li><a href="" onClick={this.handleClicks}>Home</a></li>
+           <li><a href="http://localhost:3000">Signout</a></li>
+           </div>
+           <div id="container">
+           <Table striped bordered hover variant="dark" size="lg">
            <thead>
            <tr>
            <th>junctionid</th>
@@ -158,12 +175,18 @@ class Listing extends React.Component{
            </tbody>
            </Table>
            </div>
+           </div>
          );
          break;
-       case 'Type':
+       case 'type':
          return (
            <div>
-           <Table striped bordered hover>
+           <div className='bar'>
+           <li><a href="" onClick={this.handleClicks}>Home</a></li>
+           <li><a href="http://localhost:3000">Signout</a></li>
+           </div>
+           <div id="container">
+           <Table striped bordered hover variant="dark" size="lg">
            <thead>
            <tr>
            <th>vehicleid</th>
@@ -180,12 +203,18 @@ class Listing extends React.Component{
            </tbody>
            </Table>
            </div>
+           </div>
          );
          break;
-       case 'Traffic':
+       case 'traffic':
          return (
            <div>
-           <Table striped bordered hover>
+           <div className='bar'>
+           <li><a href="" onClick={this.handleClicks}>Home</a></li>
+           <li><a href="http://localhost:3000">Signout</a></li>
+           </div>
+           <div id="container">
+           <Table striped bordered hover variant="dark" size="lg">
            <thead>
            <tr>
            <th>roadid</th>
@@ -205,12 +234,18 @@ class Listing extends React.Component{
            </tbody>
            </Table>
            </div>
+           </div>
          );
          break;
-       case 'TrafficPolice':
+       case 'trafficPolice':
         return (
           <div>
-          <Table striped bordered hover>
+          <div className='bar'>
+          <li><a href="" onClick={this.handleClicks}>Home</a></li>
+          <li><a href="http://localhost:3000">Signout</a></li>
+          </div>
+          <div id="container">
+          <Table striped bordered hover variant="dark" size="lg">
           <thead>
           <tr>
           <th>tpid</th>
@@ -229,12 +264,18 @@ class Listing extends React.Component{
           </tbody>
           </Table>
           </div>
+          </div>
         );
         break;
-       case 'Station':
+       case 'station':
          return (
            <div>
-           <Table striped bordered hover>
+           <div className='bar'>
+           <li><a href="" onClick={this.handleClicks}>Home</a></li>
+           <li><a href="http://localhost:3000">Signout</a></li>
+           </div>
+           <div id="container">
+           <Table striped bordered hover variant="dark" size="lg">
            <thead>
            <tr>
            <th>stationid</th>
@@ -252,13 +293,19 @@ class Listing extends React.Component{
            </tbody>
            </Table>
            </div>
+           </div>
 
          );
          break;
-       case 'License':
+       case 'license':
          return (
            <div>
-           <Table striped bordered hover>
+           <div className='bar'>
+           <li><a href="" onClick={this.handleClicks}>Home</a></li>
+           <li><a href="http://localhost:3000">Signout</a></li>
+           </div>
+           <div id="container">
+           <Table striped bordered hover variant="dark" size="lg">
            <thead>
            <tr>
            <th>licenseno</th>
@@ -279,19 +326,25 @@ class Listing extends React.Component{
            <tbody>
            {
              this.state.content.map((c,i) => {
-               return <tr><td>{c.licenseno}</td><td>{c.firstname}</td><td>{c.lastname}</td><td>{c.issuedon}</td><td>{c.expirydate}</td><td>{c.type}</td><td>{c.dob}</td><td>{c.phoneno}</td><td>{c.address}</td><td>{c.state}</td><td>{c.bloodgroup}</td><td>{c.fathersname}</td><td>{c.aadharno}</td></tr>
+               return <tr><td>{c.licenceno}</td><td>{c.firstname}</td><td>{c.lastname}</td><td>{c.issuedon}</td><td>{c.expirydate}</td><td>{c.type}</td><td>{c.dob}</td><td>{c.phoneno}</td><td>{c.address}</td><td>{c.state}</td><td>{c.bloodgroup}</td><td>{c.fathersname}</td><td>{c.aadharno}</td></tr>
              })
            }
            </tbody>
            </Table>
            </div>
+           </div>
 
          );
          break;
-       case 'PersonalDetail':
+       case 'personaldetail':
          return (
            <div>
-           <Table striped bordered hover>
+           <div className='bar'>
+           <li><a href="" onClick={this.handleClicks}>Home</a></li>
+           <li><a href="http://localhost:3000">Signout</a></li>
+           </div>
+           <div id="container">
+           <Table striped bordered hover variant="dark" size="lg">
            <thead>
            <tr>
            <th>aadharno</th>
@@ -307,6 +360,7 @@ class Listing extends React.Component{
            }
            </tbody>
            </Table>
+           </div>
            </div>
 
          );

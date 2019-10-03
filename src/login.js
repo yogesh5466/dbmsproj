@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import axios from 'axios';
 import App from './App';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const validateForm = (errors) => {
   let valid = true;
