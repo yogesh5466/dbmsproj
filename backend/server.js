@@ -122,9 +122,101 @@ app.post('/login',function(req,res){
   }
 })
 app.post('/display',function(req,res){
-  con.query("select * from traffic",function(err,result){
-    res.send(result);
-  })
+  switch(req.body.tablename){
+    case 'vehicleinfo':
+    con.query("select * from vehicleinfo",function (err, result) {
+      if(err>0){
+        res.send("false");
+      }
+      else{
+        console.log(result);
+        res.send(result);
+      }
+    });
+    break;
+    case 'road':
+    con.query("select * from road",function (err, result) {
+      if(err>0){
+        res.send("false");
+      }
+      else{
+        res.send(result);
+      }
+    });
+    break;
+    case 'junction':
+    con.query("select * from junction",function (err, result) {
+      if(err>0){
+        res.send("false");
+      }
+      else{
+        res.send(result);
+      }
+    });
+    break;
+    case 'type':
+    con.query("select * from type",function (err, result) {
+      if(err>0){
+        res.send("false");
+      }
+      else{
+        res.send(result);
+      }
+    });
+    break;
+    case 'traffic':
+    con.query("select * from traffic",function (err, result) {
+      if(err>0){
+        res.send("false");
+      }
+      else{
+        res.send(result);
+      }
+    });
+    break;
+    case 'trafficpolice':
+    con.query("select * from trafficpolice",function (err, result) {
+      if(err>0){
+        res.send("false");
+      }
+      else{
+        res.send(result);
+      }
+    });
+    break;
+    case 'station':
+    con.query("select * from station",function (err, result) {
+      if(err>0){
+        res.send("false");
+      }
+      else{
+        res.send(result);
+      }
+    });
+    break;
+    case 'license':
+    con.query("select * from license",function (err, result) {
+      if(err>0){
+        res.send("false");
+      }
+      else{
+        res.send(result);
+      }
+    });
+    break;
+    case 'personaldetail':
+    con.query("select * from driverdetail",function (err, result) {
+      if(err>0){
+        res.send("false");
+      }
+      else{
+        res.send(result);
+      }
+    });
+    break;
+    default:
+    break;
+  }
 })
 
 app.listen(3001, () => {
