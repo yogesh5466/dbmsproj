@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Insertion from './insertion';
 import Listing from './listing';
+import Trafficdetail from './trafficdetail';
 
 class App extends React.Component{
 
@@ -21,9 +22,6 @@ class App extends React.Component{
         break;
       case 'deletion':
           this.setState({no: 2});
-        break;
-      case 'modification':
-          this.setState({no: 3});
         break;
       case 'listing':
           this.setState({no: 4});
@@ -46,10 +44,7 @@ class App extends React.Component{
           <button className='but' name='insertion' onClick={this.handleChange}>INSERTION</button>
         </div>
         <div className='deletion'>
-          <button className='but' name='deletion' onClick={this.handleChange}>DELETION</button>
-        </div>
-        <div className='modification'>
-          <button className='but' name='modification' onClick={this.handleChange}>MODIFY</button>
+          <button className='but' name='deletion' onClick={this.handleChange}>Traffic Detail</button>
         </div>
         <div className='listing'>
           <button className='but' name='listing' onClick={this.handleChange}>LIST</button>
@@ -62,10 +57,7 @@ class App extends React.Component{
       return (<Insertion />);
     }
     if(this.state.no===2){
-
-    }
-    if(this.state.no===3){
-
+      return (<Trafficdetail />);
     }
     if(this.state.no===4){
       return (<Listing />);

@@ -4,6 +4,9 @@ span{
 p{
   font-size: 70px;
 }
+.t{
+  font-size: 40px;
+}
 body{
   background: linear-gradient(to right, #69bcf4, #30cc8b);
 }
